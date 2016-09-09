@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Typing.ViewModel.TextStreamManagerViewModel">
+    <Position X="1.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\TextStreamManagerViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Typing.ViewModel.TextStreamViewModel">
+    <Position X="3" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAoAAAAAAAAAAAAAAAAgAAAAAAAACAAIAAA=</HashCode>
+      <FileName>ViewModel\TextStreamViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Typing.Model.TextStreamModel">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAIAAAAAACAAAAAAAAAgAEAIABAACAAAAAQ=</HashCode>
+      <FileName>Model\TextStreamModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

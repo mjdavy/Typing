@@ -1,0 +1,105 @@
+﻿<UserControl 
+    x:Class="Typing.View.KeyboardView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:l="clr-namespace:Typing"
+    xmlns:vm="clr-namespace:Typing.ViewModel"
+    mc:Ignorable="d" 
+    d:DesignHeight="200" 
+    d:DesignWidth="600"
+>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="KeyboardViewResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <LinearGradientBrush x:Key="NormalBackground" EndPoint="1.453,0.47" MappingMode="RelativeToBoundingBox" StartPoint="-0.438,0.469">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FFC2C2C2" Offset="1"/>
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="PressedBackground" EndPoint="1.453,0.47" MappingMode="RelativeToBoundingBox" StartPoint="-0.438,0.469">
+                <GradientStop Color="#FF0715F7"/>
+                <GradientStop Color="#FFC2C2C2" Offset="1"/>
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="ErrorBackground" EndPoint="1.453,0.47" MappingMode="RelativeToBoundingBox" StartPoint="-0.438,0.469">
+                <GradientStop Color="#FFF70707"/>
+                <GradientStop Color="#FFC2C2C2" Offset="1"/>
+            </LinearGradientBrush>
+            
+            <Style x:Key="KeyboardKeyStyle" TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=KeyState}" Value="0">
+                        <Setter Property="Background" Value="{StaticResource NormalBackground}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=KeyState}" Value="1">
+                        <Setter Property="Background" Value="{StaticResource PressedBackground}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=KeyState}" Value="2">
+                        <Setter Property="Background" Value="{StaticResource ErrorBackground}" />
+                    </DataTrigger>           
+                </Style.Triggers>
+            </Style>
+
+            <!-- How to draw an individual virtual keyboard key -->
+            <DataTemplate x:Key="KeyboardButtonTemplate">
+                <Border BorderThickness="1" CornerRadius="2" Width="{Binding WidthHint}" Height="{Binding Scale}" Style="{StaticResource KeyboardKeyStyle}" >
+                    <Border.BorderBrush>
+                        <LinearGradientBrush EndPoint="-0.11,0.498" StartPoint="1.708,0.491">
+                            <GradientStop Color="Black"/>
+                            <GradientStop Color="#FFAFAFAF" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    
+                    <ItemsControl ItemsSource="{Binding DisplayStrings}" Foreground="White"  >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Border>
+            </DataTemplate>
+            
+            <!--How to draw a virtual keyboard row-->
+            <DataTemplate x:Key="KeyboardRowTemplate">
+                <ItemsControl ItemsSource="{Binding Keys}" ItemTemplate="{StaticResource KeyboardButtonTemplate}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Control.Margin" Value="1"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                </ItemsControl>
+            </DataTemplate>
+            
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <!-- How to draw the keyboard -->
+    <ItemsControl ItemsSource="{Binding KeyboardRows}" ItemTemplate="{StaticResource KeyboardRowTemplate}" Background="Black">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemContainerStyle>
+            <Style>
+                <Setter Property="Control.Margin" Value="2"/>
+                <!--<Style.Triggers>
+                    <Trigger Property="Control.IsMouseOver" Value="True">
+                        <Setter Property="Control.ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Content.Name}"/>
+                    </Trigger>
+                </Style.Triggers>-->
+            </Style>
+        </ItemsControl.ItemContainerStyle>
+    </ItemsControl>
+</UserControl>

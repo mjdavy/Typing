@@ -1,0 +1,23 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:vm="clr-namespace:Typing.ViewModel"
+	xmlns:vw="clr-namespace:Typing.View"
+	x:Class="Typing.View.TestList"
+	x:Name="Window"
+	Title="TestList"
+	Width="640" Height="480">
+	
+	<Window.Resources>
+		<DataTemplate DataType="{x:Type vm:TextStreamViewModel}">
+			<vw:TextStreamItemView />
+		</DataTemplate>
+	</Window.Resources>
+	
+	<Grid x:Name="LayoutRoot">
+		<ListBox Background="#FF725972" Margin="10" HorizontalContentAlignment="Stretch">
+			<vm:TextStreamViewModel Author="Oscar Wilde"/>
+			<vm:TextStreamViewModel Author="Stephen King"/>
+		</ListBox>
+	</Grid>
+</Window>

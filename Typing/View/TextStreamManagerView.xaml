@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Typing.View.TextStreamManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:vw="clr-namespace:Typing.View"
+             xmlns:vm="clr-namespace:Typing.ViewModel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"  d:DesignHeight="400" d:DesignWidth="600"
+			 >
+    
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="ListBorder" Color="Navy"/>
+        <Style x:Key="TextStreamSourceListStyle" TargetType="{x:Type ListBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBox}">
+                        <Border SnapsToDevicePixels="true" x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="3,3,3,3" CornerRadius="10,10,10,10" Padding="4,4,4,4">
+                            <ScrollViewer AllowDrop="False" Focusable="false" Padding="{TemplateBinding Padding}" Opacity="1">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="TextStreamSourceItemTemplate">
+            <vw:TextStreamItemView/>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="TextStreamProviderItemTemplate">
+            <vw:TextStreamProviderView />
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.25*" />
+            <ColumnDefinition Width="0.75*" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox
+            x:Name="TextStreamProviderList"
+		    Margin="10,0,0,0"
+            Style="{StaticResource TextStreamSourceListStyle}"
+		    Grid.Column="0" 
+            ItemTemplate="{DynamicResource TextStreamProviderItemTemplate}"
+		    ItemsSource="{Binding TextStreamProviders}" 
+            SelectedItem="{Binding CurrentTextStreamProvider}"
+		    IsSynchronizedWithCurrentItem="True" HorizontalContentAlignment="Stretch"
+        />
+
+        <ListBox 
+            x:Name="TextStreamSourceList"
+		    Margin="10,0,0,0"
+            Style="{StaticResource TextStreamSourceListStyle}"
+		    Grid.Column="1"
+		    ItemsSource="{Binding CurrentTextStreamProvider.TextStreams}"
+            ItemTemplate="{DynamicResource TextStreamSourceItemTemplate}"
+            SelectedItem="{Binding CurrentTextStreamProvider.CurrentTextStream}"
+		    IsSynchronizedWithCurrentItem="True" HorizontalContentAlignment="Stretch"
+         />
+    </Grid>
+</UserControl>
